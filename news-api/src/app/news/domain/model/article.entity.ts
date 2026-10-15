@@ -8,9 +8,6 @@ export class Article {
       public urlToImage:string,
       public publishedAt:string,
     ){
-
-
-
     }
 
 
