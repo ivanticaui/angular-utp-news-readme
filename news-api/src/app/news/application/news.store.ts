@@ -18,12 +18,10 @@ export class NewsStore {
     searchArticle(query: string) {
         this.loadingState.set(true);
         this.errorState.set("");
-        const { getArticlesByQuery } = this.newsApi;
-        getArticlesByQuery(query)
-            .pipe(
-                finalize(() => this.loadingState.set(false))
-            )
-            .subscribe({
+         const articles$ = this.newsApi.getArticlesByQuery(query)
+        .pipe(
+          finalize(() => this.loadingState.set(false))
+        ).subscribe({
                 next: (articles) => {
                     this.articleState.set(articles);
                 },
