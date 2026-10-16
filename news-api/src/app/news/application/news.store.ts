@@ -15,23 +15,23 @@ export class NewsStore {
     readonly loading = computed(() => this.loadingState());
     readonly error = computed(() => this.errorState());
 
-    searchArticle(query: string) {
-        this.loadingState.set(true);
-        this.errorState.set("");
-         const articles$ = this.newsApi.getArticlesByQuery(query)
+    searchArticle(query: string): void {
+    this.loadingState.set(true);
+    this.errorState.set('');
+
+    this.newsApi.getArticlesByQuery(query)
         .pipe(
-          finalize(() => this.loadingState.set(false))
-        ).subscribe({
-                next: (articles) => {
-                    this.articleState.set(articles);
-                },
-                error: (error) => {
-                    this.errorState.set(error.message);
-                    this.loadingState.set(false);
-                }
+            finalize(() => this.loadingState.set(false))
+        )
+        .subscribe({
+            next: (articles) => {
+                this.articleState.set(articles);
+            },
+            error: (error) => {
+                this.errorState.set(error.message);
             }
-            )
-    }
+        });
+}
 
 
 }
